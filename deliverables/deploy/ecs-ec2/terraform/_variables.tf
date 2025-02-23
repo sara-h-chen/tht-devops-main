@@ -16,13 +16,13 @@ variable "vpc_cidr" {
 }
 
 variable "ACCOUNT_ID" {
-  type        = string
+  type = string
 }
 
 variable "availability_zones" {
   description = "Region AZs"
-  default = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
-  type    = list(string)
+  type        = list(string)
+  default     = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
 }
 
 variable "public_subnets_cidr" {
@@ -35,22 +35,12 @@ variable "private_subnets_cidr" {
   type        = list(string)
 }
 
-variable "order_api_image" {
+variable "order_api_image_name" {
   description = "Docker image for Order API"
   type        = string
 }
 
-variable "processor_image" {
+variable "processor_image_name" {
   description = "Docker image for Order Processor"
-  type        = string
-}
-
-variable "order_api_repo_arn" {
-  description = "ECR Repo ARN for Order API"
-  type        = string
-}
-
-variable "order_processor_repo_arn" {
-  description = "ECR Repo ARN for Order Processor"
   type        = string
 }

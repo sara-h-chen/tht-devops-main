@@ -1,24 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  required_version = ">= 1.0"
-}
-
-provider "aws" {
-  region = var.aws_region
-  default_tags {
-    tags = {
-      Environment = var.environment
-      Project     = "THT-DevOps"
-      ManagedBy   = "Terraform"
-    }
-  }
-}
-
 module "vpc" {
   source = "./modules/vpc"
 
@@ -39,8 +18,8 @@ module "iam" {
   orders_table_arn    = module.dynamodb.orders_table_arn
   inventory_table_arn = module.dynamodb.inventory_table_arn
 
-  order_api_repo_arn       = 
-  order_processor_repo_arn = var.order_processor_repo_arn
+  order_api_repo_arn       = data.terraform_remote_state.supporting_infra.outputs.order_api_repository_arn
+  order_processor_repo_arn = data.terraform_remote_state.supporting_infra.outputs.order_processor_repository_arn
 }
 
 module "ecs" {
@@ -54,12 +33,11 @@ module "ecs" {
   alb_security_group_id = module.security.alb_security_group_id
   ecs_security_group_id = module.security.ecs_task_security_group_id
 
-  order_api_image = "{var.ACCOUNT_ID}.dkr.ecr.{var.aws_region}.amazonaws.com/{var.order_api_image_name}"
-  processor_image = "{var.ACCOUNT_ID}.dkr.ecr.{var.aws_region}.amazonaws.com/{var.processor_image_name}"
+  order_api_image = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.order_api_image_name}"
+  processor_image = "${var.ACCOUNT_ID}.dkr.ecr.${var.aws_region}.amazonaws.com/${var.processor_image_name}"
 
   ecs_execution_role_arn = module.iam.ecs_execution_role_arn
   ecs_task_role_arn      = module.iam.ecs_task_role_arn
-
 
   inventory_table_name = module.dynamodb.inventory_table_name
   orders_table_name    = module.dynamodb.orders_table_name

@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "df-devops"
     workspaces {
-      name = "supporting-infrastructure"
+      name = "ecs-ec2"
     }
   }
 
