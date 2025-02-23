@@ -9,11 +9,10 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "order_api" {
-  vpc_id      = var.vpc_id
-  name        = "${var.environment}-order-api-tg"
-  port        = 80
-  protocol    = "HTTP"
-  target_type = "instance"
+  vpc_id   = var.vpc_id
+  name     = "${var.environment}-order-api-tg"
+  port     = 80
+  protocol = "HTTP"
 
   health_check {
     healthy_threshold   = 2

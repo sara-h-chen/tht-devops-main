@@ -7,8 +7,10 @@
 - removed the unneeded ingress of port 32768 from the security group. Associated with Trojan. But also completely unnecessary, and in general, exposing higher ports should be avoided.
 - disabled container insights for cost purposes.
 - set cpu as 1 to have 2 containers on same host.
-- At least 2 desired_count on ecs service for HA, and updating the service.
+- At least 2 desired_count on ecs service and distinctInstance for HA, and for rolling out changes.
 - force_new_deployment so blue/green can be managed via image tags instead of a new task definition each time, reducing churn on infrastructure code.
+- availability_zone_rebalancing for scalability
+- use awsvpc as network setting as it avoids us having to deal with port clashes, especially if host sharing, and if services were to come up/down. Let AWS deal with the NICs. removed target-type from instance.
 
 
 # What is missing 
