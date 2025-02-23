@@ -43,8 +43,13 @@ resource "aws_ecs_service" "order_api" {
   task_definition               = aws_ecs_task_definition.order_api.arn
   desired_count                 = 2
   availability_zone_rebalancing = "ENABLED"
+  force_new_deployment          = true
 
-  force_new_deployment = true
+  network_configuration {
+    subnets         = var.private_subnets
+    security_groups = [var.ecs_security_group_id]
+  }
+
   placement_constraints {
     type = "distinctInstance"
   }
@@ -110,13 +115,13 @@ resource "aws_ecs_service" "processor_api" {
   task_definition               = aws_ecs_task_definition.processor_api.arn
   desired_count                 = 2
   availability_zone_rebalancing = "ENABLED"
+  force_new_deployment          = true
 
   network_configuration {
     subnets         = var.private_subnets
     security_groups = [var.ecs_security_group_id]
   }
 
-  force_new_deployment = true
   placement_constraints {
     type = "distinctInstance"
   }
