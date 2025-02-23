@@ -80,6 +80,7 @@ resource "aws_ecs_task_definition" "processor_api" {
   family             = "processor-api"
   task_role_arn      = var.ecs_task_role_arn
   execution_role_arn = var.ecs_execution_role_arn
+  network_mode       = "awsvpc"
 
   runtime_platform {
     operating_system_family = "LINUX"

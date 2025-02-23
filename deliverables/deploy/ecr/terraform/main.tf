@@ -1,6 +1,6 @@
 resource "aws_ecr_repository" "order_api" {
   name                 = "${var.environment}-order-api"
-  image_tag_mutability = "IMMUTABLE"
+  image_tag_mutability = "MUTABLE"
   force_delete         = true
 
   image_scanning_configuration {
@@ -18,7 +18,7 @@ resource "aws_ecr_repository" "order_api" {
 
 resource "aws_ecr_repository" "order_processor" {
   name                 = "${var.environment}-order-processor"
-  image_tag_mutability = "IMMUTABLE"
+  image_tag_mutability = "MUTABLE"
   force_delete         = true
 
   image_scanning_configuration {
