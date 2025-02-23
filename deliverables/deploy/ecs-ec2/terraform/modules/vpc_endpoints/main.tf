@@ -151,6 +151,7 @@ resource "aws_vpc_endpoint" "ecs" {
     Name = "${var.environment}-ecs-endpoint"
   }
 }
+
 resource "aws_vpc_endpoint" "dynamodb" {
   vpc_id            = var.vpc_id
   service_name      = "com.amazonaws.${data.aws_region.current.name}.dynamodb"

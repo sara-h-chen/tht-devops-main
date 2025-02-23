@@ -20,7 +20,6 @@ resource "aws_iam_role" "ecs_execution_role" {
   }
 }
 
-
 resource "aws_iam_role_policy" "ecs_execution_cloudwatch_policy" {
   name = "${var.environment}-ecs-execution-cloudwatch-policy"
   role = aws_iam_role.ecs_execution_role.id

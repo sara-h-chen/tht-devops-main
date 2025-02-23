@@ -6,6 +6,7 @@ resource "aws_autoscaling_group" "ecs" {
   desired_capacity    = 1
 
   protect_from_scale_in = true
+
   launch_template {
     id      = aws_launch_template.ecs.id
     version = "$Latest"
@@ -17,6 +18,7 @@ resource "aws_autoscaling_group" "ecs" {
     propagate_at_launch = true
   }
 }
+
 resource "aws_launch_template" "ecs" {
   name_prefix   = "ecs-template"
   image_id      = data.aws_ami.ecs_optimized.id
@@ -37,12 +39,14 @@ resource "aws_launch_template" "ecs" {
     associate_public_ip_address = false
     security_groups             = [var.ecs_security_group_id]
   }
+
   metadata_options {
     http_endpoint               = "enabled"
     http_tokens                 = "optional"
     http_put_response_hop_limit = 2
   }
 }
+
 resource "aws_iam_role" "ecs_instance_role" {
   name = "${var.environment}-ecs-instance-role"
 

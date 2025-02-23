@@ -7,7 +7,6 @@ module "vpc" {
   vpc_cidr             = var.vpc_cidr
   private_subnet_cidrs = var.private_subnets_cidr
   public_subnet_cidrs  = var.public_subnets_cidr
-
 }
 
 module "iam" {
