@@ -10,32 +10,7 @@ resource "aws_dynamodb_table" "orders" {
   range_key      = "created_at"
 
   attribute {
-    name = "order_id"
-    type = "S"
-  }
-
-  attribute {
-    name = "product_id"
-    type = "S"
-  }
-
-  attribute {
-    name = "quantity"
-    type = "N"
-  }
-
-  attribute {
     name = "customer_id"
-    type = "S"
-  }
-
-  attribute {
-    name = "status"
-    type = "S"
-  }
-
-  attribute {
-    name = "processed_at"
     type = "S"
   }
 
@@ -59,11 +34,6 @@ resource "aws_dynamodb_table" "inventory" {
   attribute {
     name = "product_id"
     type = "S"
-  }
-
-  attribute {
-    name = "stock"
-    type = "N"
   }
 
   tags = {
