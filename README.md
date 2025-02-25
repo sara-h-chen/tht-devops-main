@@ -60,15 +60,15 @@ You will implement a system with the following components:
 ### 1. AWS Infrastructure
 
 Complete the Terraform configurations for AWS deployment that:
-- Deploy services to AWS ECS-EC2 cluster
-- Set up DynamoDB tables
-- Configure networking and security
-- Stay within AWS Free Tier limits
+- [x] Deploy services to AWS ECS-EC2 cluster
+- [x] Set up DynamoDB tables
+- [x] Configure networking and security
+- [x] Stay within AWS Free Tier limits
 
 ### 2. Kubernetes Deployment
 
 Create Helm charts that:
-- Deploy both services
+-  Deploy both services
 - Configure service discovery
 - Implement proper health checks
 - Include local DynamoDB for development (code is provided)
@@ -82,8 +82,8 @@ Implement comprehensive observability with:
 ### 4. Documentation and Testing
 
 Provide thorough documentation including:
-- Setup instructions
-- Justification for your decisions 
+- [x] Setup instructions
+- [x] Justification for your decisions
 
 
 1. Review the starter code in `starter` directory:

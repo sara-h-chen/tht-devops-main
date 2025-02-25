@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamodb-local
+spec:
+  template:
+    spec:
+      containers:
+      - name: dynamodb-local
+        image: "amazon/dynamodb-local:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        args:
+          - "-jar"
+          - "DynamoDBLocal.jar"
+          - "-sharedDb"
+          - "-dbPath"
+          - "/data"
+        volumeMounts:
+          - name: dynamodb-data
+            mountPath: /data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "200m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+      volumes:
+      - name: dynamodb-data
+        emptyDir: {}

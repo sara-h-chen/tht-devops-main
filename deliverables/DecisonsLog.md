@@ -13,7 +13,7 @@
 - `orders` Dynamo table has `range_key` of `created_at` so that orders can be sorted by timestamp, if a customer wants to get their latest order within the last time period.
 
 ### Part 2
-
+- Used `kustomize` to manage the `deployment.yaml` and `service.yaml` for all of the kube resources. This is because I find `kustomize` easier to read than using templates, especially when there is a lot of repeated code. In this case, `order-api` and `processor-api` pretty much run identical `deployment|service.yaml` and as such, it's easier to customize a shared base than copy-paste code across all of them without an easy way to identify differences between them. `kustomize` is also better for managing multiple environments, even though we only have one here. In real life situation, overlays would more likely be based on environments than deployment (since deployments are quite unlikely to be this similar in real life), but using `kustomize` would allow us to ensure that changes are reflected accurately across environments, reducing risk of drift caused by errors.
 
 # What is missing
 ### Part 1
@@ -34,6 +34,10 @@
 
 
 # What I would do if this was in a production environment and I had more time
+### General
+- Maybe obvious, but Gitflow. I committed everything to `master` for the sake of simplicity and time efficiency.
+- Add images/screenshots to instructions to help provide visual aid, e.g. viewing and using outputs on TF.
+
 ### Part 1
 - The assessment does not really give us an idea for how much load we're expecting on our db, so `PROVISIONED` throughput was chosen as a default for DynamoDB. If running in prod, it would be better to monitor to get an idea for how much is required, then optimize RCU/WCU based on that. For example, if we have multiple tables in our environment and one already consumes all the Free Tier quota, then it could be more cost-effective to switch to `ON-DEMAND` and autoscale from there, based on load requirements.
 - Usage of HTTP. Understandable that this is only for the sake of this assessment, and this is not production grade, but in real world, this should almost definitely be HTTPS. Especially since we can leverage ACM + ALB if not willing to manage own SSL certs; we have absolutely 0 reason not to.
@@ -45,3 +49,4 @@
 - I would have loved to have written test cases for the Python code running the apps, and included it as part of a CI/CD pipeline, along with linters. I would have also included instructions on how to run these manually in `Instructions.md`.
 
 ### Part 2
+- Use `kustomize` to allow for changes at scale: 1. manage `[dev|test|prod]` environments better, and 2. pull/manage changes from upstream projects. I think, in a real production system, I would use `kustomize` for managing environments instead of resources, but in this project, the resources were largely the same so I decided to use it here instead.

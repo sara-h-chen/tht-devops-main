@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: order-api
+
+resources:
+- ../../base
+
+# Adds common labels to all resources
+labels:
+- includeSelectors: true
+  pairs:
+    app: order-api
+patches:
+##### DEPLOYMENT #####
+- target:
+    kind: Deployment
+    name: deployment
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: order-api
+- path: deployment.yaml
+##### SERVICE #####
+- target:
+    kind: Service
+    name: service
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: order-api
+- path: service.yaml

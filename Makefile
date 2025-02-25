@@ -22,4 +22,5 @@ helm-apply:
 helm-restart: helm-destroy helm-apply
 
 ddb-seed:
-	DDB_ENDPOINT=http://localhost:8088 python './starter/apps/scripts/init-dynamodb.py'
+	pip install boto3
+	DDB_ENDPOINT=http://localhost:8088 python3 './starter/apps/scripts/init-dynamodb.py'

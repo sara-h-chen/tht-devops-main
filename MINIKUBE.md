@@ -14,7 +14,7 @@ forward the port:
 `kubectl port-forward deployment/dynamodb-local  8088:8000  &`
 
 execute the init script, seed the database
-`DDB_ENDPOINT=http://localhost:8088 python './starter/apps/scripts/init-dynamodb.py'`
+`DDB_ENDPOINT=http://localhost:8088 python3 ./starter/apps/scripts/init-dynamodb.py`
 
 
 # Connect to Order API

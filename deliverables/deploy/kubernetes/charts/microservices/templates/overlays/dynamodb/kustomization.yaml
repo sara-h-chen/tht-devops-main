@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: dynamodb-local
+
+resources:
+- ../../base
+
+# Adds common labels to all resources
+labels:
+- includeSelectors: true
+  pairs:
+    app: dynamodb-local
+patches:
+##### DEPLOYMENT #####
+- target:
+    kind: Deployment
+    name: deployment
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dynamodb-local
+- path: deployment.yaml
+##### SERVICE #####
+- target:
+    kind: Service
+    name: service
+  patch: |-
+    - op: replace
+      path: /metadata/name
+      value: dynamodb-local
+- path: service.yaml

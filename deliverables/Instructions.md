@@ -63,7 +63,14 @@ A `makefile` has been made available in the directory, which allows you to run t
 
 # Kubernetes and Helm
 ## How to deploy to MiniKube
-- 
+### Setup & Installation
+Run a local version of DynamoDB by running the instructions given in `MINIKUBE.md`, titled below:
+1. How to upload local images to Minikube,
+2. Deploy Helm chart,
+3. Seed local DynamoDB table with entries.
+
+This will first build the image for DynamoDB on Docker locally, then deploy it onto minikube, using the Helm charts. Then running `make ddb-seed` would insert entries into the local Dynamo table to be used by the app.
+
 
 ## How to Test 
 - 

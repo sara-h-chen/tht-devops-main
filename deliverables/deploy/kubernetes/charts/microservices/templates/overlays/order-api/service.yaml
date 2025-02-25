@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-api
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: order-api
+      nodePort: 31000

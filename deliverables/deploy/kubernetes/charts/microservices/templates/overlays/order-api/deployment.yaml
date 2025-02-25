@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: order-api
+          image: "order-api:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8000
+          env:
+            - name: DYNAMODB_ENDPOINT
+              value: "http://dynamodb-local:8000"
+            - name: AWS_ACCESS_KEY_ID
+              value: "local"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "local"
+            - name: AWS_DEFAULT_REGION
+              value: "eu-west-1"
+            - name: ORDER_PROCESSOR_URL
+              value: "http://processor-api:8000"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          
