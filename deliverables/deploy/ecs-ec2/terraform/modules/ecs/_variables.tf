@@ -64,6 +64,7 @@ variable "inventory_table_name" {
   description = "Name of the DynamoDB inventory table"
   type        = string
 }
+
 variable "instance_type" {
   description = "Instance type"
   type        = string

@@ -3,6 +3,12 @@ variable "environment" {
   type        = string
 }
 
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "eu-west-1"
+}
+
 variable "orders_table_arn" {
   description = "ARN of the Orders DynamoDB table"
   type        = string

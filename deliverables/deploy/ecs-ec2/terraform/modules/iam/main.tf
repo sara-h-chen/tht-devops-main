@@ -36,8 +36,8 @@ resource "aws_iam_role_policy" "ecs_execution_cloudwatch_policy" {
           "logs:DescribeLogStreams"
         ]
         Resource = [
-          "arn:aws:logs:*:*:log-group:/ecs/${var.environment}-*",
-          "arn:aws:logs:*:*:log-group:/ecs/${var.environment}-*:*"
+          "arn:aws:logs:*:*:log-group:/ecs/*/${var.environment}-*",
+          "arn:aws:logs:*:*:log-group:/ecs/*/${var.environment}-*/*:*"
         ]
       }
     ]
