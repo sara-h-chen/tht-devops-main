@@ -1,6 +1,6 @@
 # Terraform and ECS-EC2 cluster
 ## How to deploy
-### Setup
+### Setup & Installation
 Ensure you have the following tools installed on your local machine:
 1. Python3.9 and above (any in-support Python versions)
 2. Terraform
@@ -9,13 +9,13 @@ Ensure you have the following tools installed on your local machine:
 5. `minikube`
 6. `kubectl`
 
-#### Python
+##### Python
 Python3 should be installed by default on a Linux machine. However, if you are running a Windows machine, download and run the installer from the [Python website](https://www.python.org/downloads/windows/).
 
-#### Terraform
+##### Terraform
 Follow the instructions on Hashicorp's [official documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
 
-#### Docker Desktop
+##### Docker Desktop
 The easiest way to start using Docker on your machine is to install Docker Desktop from the official [Docker website](https://docs.docker.com/desktop/).
 
 If using a Mac, you can install Docker via `brew`, without having to install Virtualbox:
@@ -24,16 +24,16 @@ brew install --cask docker
 open /Applications/Docker.app
 ```
 
-#### AWS CLI
+##### AWS CLI
 `brew install awscli` if you are on MacOS, or follow the instructions on the official [AWS Documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for other OSes.
 
-#### minikube
+##### minikube
 `brew install minikube` if you are on MacOS, or follow the instructions on [minikube docs](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Fx86-64%2Fstable%2Fhomebrew).
 
-#### kubectl
+##### kubectl
 `brew install kubectl` or follow instructions on official [Kubernetes documentation](https://kubernetes.io/docs/tasks/tools/#kubectl).
 
-### Running Terraform
+### Deploying Infrastructure with Terraform
 This project is divided into 2 workspaces:
 1. `supporting-infrastructure`
 2. `ecs-ec2`
