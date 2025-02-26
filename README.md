@@ -68,16 +68,16 @@ Complete the Terraform configurations for AWS deployment that:
 ### 2. Kubernetes Deployment
 
 Create Helm charts that:
--  Deploy both services
-- Configure service discovery
-- Implement proper health checks
-- Include local DynamoDB for development (code is provided)
+- [x] Deploy both services
+- [x] Configure service discovery
+- [x] Implement proper health checks
+- [x] Include local DynamoDB for development (code is provided)
 
 ### 3. Observability Stack
 
 Implement comprehensive observability with:
-- Kubernetes Metrics collection with Prometheus
-- Grafana dashboards
+- [x] Kubernetes Metrics collection with Prometheus
+- [x] Grafana dashboards
 
 ### 4. Documentation and Testing
 

@@ -9,7 +9,7 @@ docker-build-api:
 	@docker build --progress plain -t order-api starter/apps/order-api/. 
 
 docker-build-processor:
-	@docker build --progress plain -t order-processor starter/apps/order-processor/. 
+	@docker build --progress plain -t processor-api starter/apps/order-processor/. 
 
 docker-build: docker-build-api docker-build-processor
 

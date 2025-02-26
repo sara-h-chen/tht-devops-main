@@ -71,6 +71,31 @@ Run a local version of DynamoDB by running the instructions given in `MINIKUBE.m
 
 This will first build the image for DynamoDB on Docker locally, then deploy it onto minikube, using the Helm charts. Then running `make ddb-seed` would insert entries into the local Dynamo table to be used by the app.
 
+### Kustomize
+We are using `kustomize` to help us with the management of our Kubernetes manifests. To install, run `brew install kustomize`. It may also come with your `kubectl` installation by default. In order to review your `kustomize` patch without applying the manifests, navigate to the `templates/` folder and run the `kustomize build` command on the resource that you would like to build manifests for, e.g.:
+```bash
+kustomize build overlays/dynamodb
+```
+Once rendered, and you are happy with the changes, you can apply the changes with `kubectl apply -k`, e.g.:
+```bash
+kubectl apply -k overlays/dynamodb`
+```
+Now, once you have ensured that all your Docker files have been built on locally, deploy all three resources to `minikube`.
+
+### Kube Metrics Collection
+To install Kube Metrics with Prometheus and Grafana, you can install it very quickly using Helm:
+```bash
+kubectl create ns monitoring
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace monitoring
+```
+This will deploy the following pods:
+```bash
+kube-prometheus-stack-grafana
+kube-prometheus-stack-kube-state-metrics
+kube-prometheus-stack-operator
+```
+Once these pods have started, you should be able to validate that it is functioning by logging into the Grafana dashboard locally by following the instructions given as an output from the `helm install` step.
 
 ## How to Test 
-- 
+- TODO

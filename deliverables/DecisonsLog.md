@@ -14,6 +14,7 @@
 
 ### Part 2
 - Used `kustomize` to manage the `deployment.yaml` and `service.yaml` for all of the kube resources. This is because I find `kustomize` easier to read than using templates, especially when there is a lot of repeated code. In this case, `order-api` and `processor-api` pretty much run identical `deployment|service.yaml` and as such, it's easier to customize a shared base than copy-paste code across all of them without an easy way to identify differences between them. `kustomize` is also better for managing multiple environments, even though we only have one here. In real life situation, overlays would more likely be based on environments than deployment (since deployments are quite unlikely to be this similar in real life), but using `kustomize` would allow us to ensure that changes are reflected accurately across environments, reducing risk of drift caused by errors.
+- Created separate namespace for monitoring, to ensure that the deployments are kept logically separate from one another.
 
 # What is missing
 ### Part 1
@@ -23,15 +24,16 @@
 - Using `bridge` mode for dynamic port mapping, and binpacking, but this could be an issue for service discovery and security groups. In production systems, would use `awsvpc`.
 - Reduced the `maximumScalingStepSize` to reduce the risk of scaling out of control. Additionally, lowered the `targetCapacity` to reduce the risk of downtime should the autoscaling group require time to scale out. 
 
+### Part 2
+- Chaining together the `kustomize` files so that they can all be deployed via a single `kubectl apply -k` command.
+- While we have Prometheus, we have nothing for logs in this project. Once installed, we should ensure that we only keep relevant logs, and try to keep the logs as "lean" as possible, keeping only the essentials, to avoid storing/processing too much data.
+
 # What could be improved
 ### Part 1
 - Would have loved to have refactored and moved all the VPC + networking into the `supporting-infrastructure` folder/workspace to prevent the networking layer from being affected by "churn", should the cluster need to be rebuilt.
 - Given the time, I was only able to improve some of the hygiene on the code, not anything within the modules. Some of the code needs cleaning up as this can cause bugs, e.g. `order_api_repository_arn` but `order_processor_repository_ARN`, which should be caught during a PR.
 - The deletion of resources is not very clean, e.g. unable to destroy stack because the ecs cluster will try to delete before the service does. Dependencies between resources need to be figured out, and these dependencies to be given an explicit depends_on to prevent fragility in the code.
 - The `environment` variable that currently holds the value of `devopstht` is not very reflective of an actual environment. The configuration should be parameterized, allowing the variables to be broken out into `dev`, `uat` and `prod` to reflect the values of each, since each environment is likely to be configured slightly differently.
-
-### Part 2
-
 
 # What I would do if this was in a production environment and I had more time
 ### General
@@ -50,3 +52,5 @@
 
 ### Part 2
 - Use `kustomize` to allow for changes at scale: 1. manage `[dev|test|prod]` environments better, and 2. pull/manage changes from upstream projects. I think, in a real production system, I would use `kustomize` for managing environments instead of resources, but in this project, the resources were largely the same so I decided to use it here instead.
+- Better observability. Due to time constraints, I was only able to install the Prometheus stack, but I was not able to configure it. In a real world environment, it is vital to implement alerting on these metrics that will help you understand the health of your cluster, e.g. `node_memory_MemAvailable_bytes`. It would also be good to build a dashboard around metrics like CPU/memory utilization, at the cluster/namespace/container levels, to try to identify utilization efficiency.
+- I have never worked with it before, but I would love to see how useful Hubble would be in a production environment, as it could give insight into networking layer in a way that Prometheus would not be able to.
